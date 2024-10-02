@@ -60,7 +60,7 @@
                     </div>
                     <div class="form-group">
                         <label for="" class="label">Upload your driver license</label>
-                        <input required type="file" name="driver_license" class="form-control">
+                        <input accept="image/*" required type="file" name="driver_license" class="form-control">
                     </div>
                     {{-- <div class="form-group">
                         <label for="" class="label">Pick-up time</label>

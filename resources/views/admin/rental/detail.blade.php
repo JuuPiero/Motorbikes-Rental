@@ -92,7 +92,7 @@
                     <div class="form-group">
                         <h4 class="form-control-label">Upload Current Bike photo</h4>
                         <div class="col-sm-3">
-                            <input name="pre_rental_image" type="file" class="form-control" />
+                            <input accept="image/*" name="pre_rental_image" type="file" class="form-control" />
                         </div>
                     </div>
                 @endif

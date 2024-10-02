@@ -26,26 +26,12 @@
                         <input value="{{ $motorbike->brand }}" name="brand" type="text" class="form-control" required />
                     </div>
                 </div>
-                {{-- <div class="line"></div>
-                <div class="form-group row">
-                    <label class="col-sm-3 form-control-label">Category</label>
-                    <div class="col-sm-9">
-                        <select multiple name="categoryIds[]" class="form-control mb-3 mb-3" required>
-                            @foreach ($categories as $category)
-                                @include('admin.product._categoryUpdateForm', 
-                                [
-                                    'category' => $category, 
-                                    'name' => $category->name
-                                ])
-                            @endforeach
-                        </select>
-                    </div>
-                </div> --}}
+               
                 <div class="line"></div>
                 <div class="form-group row">
                     <label class="col-sm-3 form-control-label">Image</label>
                     <div class="col-sm-4">
-                        <input name="images[]" type="file" class="form-control" multiple />
+                        <input accept="image/*" name="images[]" type="file" class="form-control" multiple />
                     </div>
                     @foreach ($motorbike->images as $image)
                         <img style="width: 160px; height: 90px; object-fit: cover" src="{{ asset('uploads/motorbike/' . $image->name) }}" />

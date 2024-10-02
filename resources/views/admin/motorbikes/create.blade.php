@@ -36,7 +36,7 @@
                 <div class="form-group row">
                     <label class="col-sm-3 form-control-label">Image(s)</label>
                     <div class="col-sm-4">
-                        <input name="images[]" type="file" class="form-control" multiple required/>
+                        <input accept="image/*" name="images[]" type="file" class="form-control" multiple required/>
                     </div>
                 </div>
                 <div class="line"></div>
