@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\MotorbikeController;
+use App\Http\Controllers\Admin\RatingController;
 use App\Http\Controllers\Admin\RentalController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\UserController;
@@ -22,8 +23,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/motorbike/detail/{id}', [HomeController::class, 'motorbikeDetail'])->name('motorbike.detail');
-Route::get('/motorbikes', [HomeController::class, 'motorbikes'])->name('home.motorbikes');
-Route::get('/rental/create/{bikeId}', [HomeController::class, 'createRental'])->name('rental.create');
+Route::get('motorbikes', [HomeController::class, 'motorbikes'])->name('home.motorbikes');
+Route::get('rental/create/{bikeId}', [HomeController::class, 'createRental'])->name('rental.create');
+Route::get('search', [HomeController::class, 'search'])->name('home.search');
+Route::get('about', [HomeController::class, 'about'])->name('home.about');
 
 Route::prefix('user')->group(function() {
     Route::get('login', [UserController::class, 'login'])->name('user.login');
@@ -34,14 +37,19 @@ Route::prefix('user')->group(function() {
 
     Route::prefix('/')->middleware('auth')->group(function() {
         Route::get('logout', [UserController::class, 'logout'])->name('user.logout');
+        Route::get('profile', [UserController::class, 'profile'])->name('user.profile');
+        Route::post('profile/update', [UserController::class, 'updateProfie'])->name('user.profile.update');
+
+        Route::get('cancel/rental/{id}', [UserController::class, 'cancelRental'])->name('user.cancel.rental');
+
+        // Route::get(uri: 'cancelRental/{id}', [UserController::class, 'cancelRental'])->name('user.');
+
 
         Route::post('/rental/store', [RentalController::class, 'storeRental'])->name('rental.store');
 
-        // Route::get('account/profile', [UserController::class, 'profile'])->name('user.profile');
-        // Route::post('profile/update', [UserController::class, 'updateProfie'])->name('user.profile.update');
+        Route::post('create/rating', [UserController::class, 'createRating'])->name('user.create.rating');
 
-        // Route::get('purchase', [UserController::class, 'purchase'])->name('user.purchase');
-        // Route::post('create/rating', [UserController::class, 'createRating'])->name('user.create.rating');
+        Route::get('delete/{id}', [RatingController::class, 'delete'])->name('user.rating.delete');
     });
 });
 
@@ -53,15 +61,16 @@ Route::prefix('admin')->group(function () {
     Route::prefix('/')->middleware('admin.auth')->group(function() {
         Route::get('', [AdminController::class, 'index'])->name('admin');
         Route::get('logout', [AdminController::class, 'logout'])->name('admin.logout');
-        // Route::get('search', [AdminController::class, 'search'])->name('admin.search');
+        Route::get('search', [AdminController::class, 'search'])->name('admin.search');
         Route::get('create', [AccountController::class, 'createAdmin'])->name('admin.create');
         Route::post('store', [AccountController::class, 'storeAdmin'])->name('admin.store');
-          
+        Route::get('delete/{id}', [AccountController::class, 'deleteAdmin'])->name('admin.delete');
+        
         
 
         Route::get('accounts', [AccountController::class, 'accounts'])->name('admin.account');
-        Route::delete('users/delete/{id}', [AccountController::class, 'deleteUser'])->name('admin.user.delete');
-        
+        Route::get('users/delete/{id}', [AccountController::class, 'deleteUser'])->name('admin.user.delete');
+       
 
         Route::prefix('user')->group(function() {
             Route::get('detail/{id}', [AccountController::class, 'userDetail'])->name('admin.user.detail');
@@ -92,14 +101,10 @@ Route::prefix('admin')->group(function () {
         //     Route::delete('delete/{id}', [CategoryController::class, 'delete'])->name('admin.category.delete');
         });
 
-        // Route::prefix('orders')->group(function() {
-        //     Route::get('', [OrderController::class, 'index'])->name('admin.order');
-        // });
-
-        // Route::prefix('invoice')->group(function() {
-        //     Route::get('show/{id}', [InvoiceController::class, 'show'])->name('admin.invoice.show');
-        //     Route::get('create/{id}', [InvoiceController::class, 'create'])->name('admin.invoice.create');
-        // });
+        Route::prefix('ratings')->group(function() {
+            Route::get('', [RatingController::class, 'index'])->name('admin.rating');
+            Route::get('delete/{id}', [RatingController::class, 'delete'])->name('admin.rating.delete');
+        });
 
 
     });

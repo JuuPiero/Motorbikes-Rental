@@ -36,6 +36,10 @@
                     <input type="hidden" name="motorbike_id" value="{{$motorbike->id}}" />
                     <h2>Make your trip</h2>
                     <div class="form-group">
+                        <label for="" class="label">Phone Number</label>
+                        <input required value="{{ Auth::user()->phone_number }}" type="text" name="phone_number" class="form-control">
+                    </div>
+                    <div class="form-group">
                         <label for="" class="label">Pick-up location</label>
                         <input required  name="pick_up_location" type="text" class="form-control" placeholder="City, Airport, Station, etc">
                     </div>

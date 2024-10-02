@@ -36,7 +36,7 @@
               <div class="image-block">
                 <img src="{{asset('custom/admin/images/user.png')}}" alt="" />
               </div>
-              <div class="info-container ">
+              <div class="info-container ml-5" style="flex: 1;">
                 
                 <div class="info-line">
                   <span><strong>First Name : </strong> {{ $account->first_name }}</span>
@@ -103,17 +103,48 @@
         </div>
        
     </div>
+
+    <div class="block">
+      <div class="title"><strong>Rentals</strong></div>
+      {{-- <a href="{{ route('admin.product.create') }}" class="btn btn-primary text-black">Add new</a> --}}
+      <div class="table-responsive"> 
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Motorbike</th>
+              <th>Amount</th>
+              <th>Start Time</th>
+              <th>End Time</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach ($account->rentals as $rental)
+              <tr>
+                <th scope="row">{{ $rental->id }}</th>
+                <td><a href="{{ route('admin.motorbike.edit',  $rental->motorbike->id) }}">{{ $rental->motorbike->model }}</a></td>
+                <td>{{ $rental->total_amount }}₫</td>
+                <td>{{ $rental->start_time }}</td>
+                <td>{{ $rental->end_time }}</td>
+
+                {{-- <td>{{ timeAgo($order->created_at) }}</td> --}}
+                <td ><span style="border-radius: 4px" class="">{{ $rental->status }}</span></td>
+                <td>
+                  <a href="{{ route('admin.rental.detail', $rental->id) }}" class="btn btn-primary text-black">Detail</a>
+                </td>
+              </tr>
+            @endforeach
+          </tbody>
+        </table>
+      </div>
+      {{-- {{ $account->rentals->render('admin.layouts._paginate') }} --}}
+
+  </div>
 </div>
 @endsection
 
 @section('scripts')
-{{-- <script src="{{ asset('custom/admin/js/deleteRow.js') }}"></script>
-<script>
-$(".delete-btn").click(e => {
-    const itemId = e.target.getAttribute('data-id')
-    deleteRow(itemId, 'users')
-    window.location.href = window.location.origin + '/admin/accounts/';
-    // $('#row-' + itemId).remove()
-});
-</script> --}}
+
 @endsection

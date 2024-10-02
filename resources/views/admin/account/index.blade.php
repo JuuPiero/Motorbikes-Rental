@@ -26,8 +26,8 @@
                   <td>{{ $admin->email }}</td>
                   <td>{{ $admin->created_at }}</td>
                   <td>
-                    {{-- <a class="btn btn-primary" href="{{route('admin.detail', $admin->id)}}">Detail</a> --}}
-                    <button class="btn btn-secondary" data-id="{{$admin->id}}">Delete</button>
+                    <a class="btn btn-primary" href="{{route('admin.delete', $admin->id)}}">Delete</a>
+                    {{-- <button class="btn btn-secondary" data-id="{{$admin->id}}">Delete</button> --}}
                   </td>
                 </tr>
               @endforeach

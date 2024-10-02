@@ -5,25 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Rental extends Model
+class Rating extends Model
 {
     use HasFactory;
-    const IMAGE_UPLOAD_PATH = 'uploads/rental';
+    protected $table = 'ratings';
 
     protected $fillable = [
         'user_id',
         'motorbike_id',
-        'phone_number',
-        'start_time',
-        'end_time',
-        'note',
-        'status',
-        'total_amount',
-        'pick_up_location',
-        'drop_off_location',
-        'pre_rental_image',
-        'driver_license'
-
+        'rating',
+        'comment'
     ];
 
     public function user() {
@@ -34,6 +25,4 @@ class Rental extends Model
         return $this->belongsTo(Motorbike::class);
     }
 
-
-  
 }

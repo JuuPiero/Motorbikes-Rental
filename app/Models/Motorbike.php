@@ -31,6 +31,8 @@ class Motorbike extends Model
         return $this->hasMany(Rental::class);
     }
 
-
+    public function ratings() {
+        return $this->hasMany(Rating::class);
+    }
     
 }

@@ -3,11 +3,9 @@
       <div class="search-panel">
         <div class="search-inner d-flex align-items-center justify-content-center">
           <div class="close-btn">Close <i class="fa fa-close"></i></div>
-          <form id="searchForm" 
-          {{-- action="{{route('admin.search')}}" --}}
-          >
+          <form id="searchForm" action="{{route('admin.search')}}">
             <div class="form-group">
-              <input type="search" name="keyword" placeholder="What are you searching for...">
+              <input type="search" name="keywords" placeholder="What are you searching for...">
               <button type="submit" class="submit">Search</button>
             </div>
           </form>
@@ -24,18 +22,6 @@
         <div class="right-menu list-inline no-margin-bottom">    
           <div class="list-inline-item"><a href="#" class="search-open nav-link"><i class="icon-magnifying-glass-browser"></i></a></div>
         
-          <!-- Tasks-->
-       
-          <!-- Tasks end-->
-
-          <!-- Megamenu-->
-        
-          <!-- Megamenu end     -->
-
-          <!-- Languages dropdown    -->
-         
-          <!-- Log out               -->
-          
           <div class="list-inline-item logout">
             <a id="logout" href="{{ route('admin.logout')}} " class="nav-link">Logout <i class="icon-logout"></i></a></div>
         </div>

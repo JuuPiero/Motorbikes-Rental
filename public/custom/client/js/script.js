@@ -7,10 +7,10 @@ accountActionsEl?.addEventListener('click', e => {
 
 
 
-const btnClosePopupElement = document.querySelector('.btn.closepopup')
-const popupElement = document.querySelector('#popup-container')
-if(btnClosePopupElement) {
-    btnClosePopupElement.addEventListener('click', () => {
-        popupElement.style.display = 'none'
-    })
-}
+// const btnClosePopupElement = document.querySelector('.btn.closepopup')
+// const popupElement = document.querySelector('#popup-container')
+// if(btnClosePopupElement) {
+//     btnClosePopupElement.addEventListener('click', () => {
+//         popupElement.style.display = 'none'
+//     })
+// }

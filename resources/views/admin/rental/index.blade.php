@@ -2,18 +2,7 @@
 
 @section('content')
 <div class="container-fluid">
-  {{-- <form class="form-horizontal filter-form " method="GET" action="{{ route('admin.order') }}">
-    <div class="form-group row flex-row-reverse">
-        <div class="col-sm-3 ">
-          <select name="status" class="form-control order-status-input">
-            <option value="">All</option>
-            @foreach ($orderStatus as $status)
-                <option {{$status == $statusFilter ? 'selected' : ''}} value="{{$status}}">{{$status}}</option>
-            @endforeach
-          </select>
-        </div>
-      </div>
-  </form> --}}
+
   <div class="block">
       <div class="title"><strong>Rentals</strong></div>
       {{-- <a href="{{ route('admin.product.create') }}" class="btn btn-primary text-black">Add new</a> --}}
@@ -35,14 +24,14 @@
             @foreach ($rentals as $rental)
               <tr>
                 <th scope="row">{{ $rental->id }}</th>
-                <td><a href="">{{ $rental->user->first_name . " " . $rental->user->last_name }}</a></td>
+                <td><a href="{{route('admin.user.detail', $rental->user->id)}}">{{ $rental->user->first_name . " " . $rental->user->last_name }}</a></td>
                 <td><a href="">{{ $rental->motorbike->model }}</a></td>
                 <td>{{ $rental->total_amount }}₫</td>
                 <td>{{ $rental->start_time }}</td>
                 <td>{{ $rental->end_time }}</td>
 
                 {{-- <td>{{ timeAgo($order->created_at) }}</td> --}}
-                <td ><span style="border-radius: 4px" class="order-status text-black">{{ $rental->status }}</span></td>
+                <td ><span style="border-radius: 4px" class="">{{ $rental->status }}</span></td>
                 <td>
                   <a href="{{ route('admin.rental.detail', $rental->id) }}" class="btn btn-primary text-black">Detail</a>
                 </td>

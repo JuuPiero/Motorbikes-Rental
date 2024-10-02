@@ -25,7 +25,14 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "classmap": [
+            "app/Extensions"            
+        ],
+        "files": [
+            "app/Extensions/helpers.php"
+        ]
+        
     },
     "autoload-dev": {
         "psr-4": {

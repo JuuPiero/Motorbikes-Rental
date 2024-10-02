@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Extensions\Motorbike\MotorbikeStatus;
 use App\Http\Controllers\Controller;
 use App\Models\Image;
 use App\Models\Motorbike;
@@ -19,10 +20,16 @@ class MotorbikeController extends Controller {
 
     public function create() {
         // $categories = Category::where('parent_id', 0)->get();
-        return view('admin.motorbikes.create');
+        $bikeStatus = MotorbikeStatus::getStatus();
+        return view('admin.motorbikes.create')->with([
+            'bikeStatus' => $bikeStatus
+        ]);
     }
 
     public function store(Request $request) {
+        $validated = $request->validate([
+            'license_plate' => 'required|unique:motorbikes',
+        ]);
         $data = $request->all();
         $motorbike = Motorbike::create($data);
         if ($request->hasFile('images')) {
@@ -51,10 +58,30 @@ class MotorbikeController extends Controller {
     }
 
     public function update($id, Request $request) {
-     
+        $motorbike = Motorbike::findOrFail($id);
+
+        $data = $request->all();
+
+        if($request->hasFile('images')) {
+            foreach ($motorbike->images as $image) {
+                $filePath = public_path(Motorbike::IMAGE_UPLOAD_PATH . '/' . $image->name);
+                if (file_exists($filePath)) unlink($filePath);
+                Image::destroy($image->id);
+            }
+
+            $images = $request->file('images');
+            foreach ($images as $index => $image) {
+                $fileName = $motorbike->id . '_' . $index . '_' . time() . '.' .  $image->getClientOriginalExtension();
+                $image->move(public_path(Motorbike::IMAGE_UPLOAD_PATH), $fileName);
+                Image::create([
+                    'motorbike_id' => $motorbike->id,
+                    'name' => $fileName
+                ]);
+            }
+        }
+        $motorbike->update($data);
         // $this->productRepository->update($id, $request);
-        // return redirect()->back()->with('message', 'tạo thành công');
-        return redirect()->route('admin.product')->with([
+        return redirect()->route('admin.motorbike')->with([
             'message' => 'cập nhật thành công'
         ]);
     }
@@ -62,7 +89,7 @@ class MotorbikeController extends Controller {
     public function delete($id) {
         try {
             // Xóa tất cả hình ảnh liên kết với các sản phẩm 
-            $images = Image::where('motorbike)id', $id)->get();
+            $images = Image::where('motorbike_id', $id)->get();
             foreach ($images as $image) {
                 $filePath = public_path(Motorbike::IMAGE_UPLOAD_PATH . '/' . $image->name);
                 if (file_exists($filePath)) {

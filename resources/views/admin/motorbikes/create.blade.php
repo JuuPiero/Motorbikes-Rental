@@ -54,6 +54,19 @@
                         </textarea>
                     </div>
                 </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 form-control-label">Status</label>
+                    <div class="col-sm-9">
+                        <select name="status" id="" class="form-control">
+                            @foreach ($bikeStatus as $status)
+                                <option value="{{$status}}">{{ $status }}</option>
+                            @endforeach
+                            {{-- <option value="Available">Available</option>
+                            <option value="Renting">Renting</option>
+                            <option value="Disable">Disable</option> --}}
+                        </select>
+                    </div>
+                </div>
                 
                 <div class="line"></div>
                 <div class="form-group row">

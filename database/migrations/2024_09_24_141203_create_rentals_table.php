@@ -15,14 +15,13 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('motorbike_id')->nullable();
+            $table->string('phone_number');
             $table->string('pick_up_location');
             $table->string('drop_off_location');
             $table->dateTime('start_time');
             $table->dateTime('end_time');
             $table->string('pre_rental_image')->nullable();
             $table->string('driver_license');
-
-            // $table->text('note')->nullable();
             $table->decimal('total_amount', 10, 2);
             $table->string('status')->comment("Complete, Unpaid, Paid, Canceled, ...");
             $table->timestamps();

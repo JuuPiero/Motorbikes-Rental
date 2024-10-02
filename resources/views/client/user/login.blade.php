@@ -12,12 +12,21 @@
       </div>
     </div>
   </section> --}}
-
-  <section class="ftco-section contact-section">
+ 
+<section class="ftco-section contact-section">
     <h1 style="text-align: center">Login</h1>
+    @if ($errors->any())
+      <div class="alert alert-danger container">
+        <ul>
+          @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+          @endforeach
+        </ul>
+      </div>
+    @endif
     <div class="container">
       <div class="row d-flex mb-5 contact-info justify-content-center">
-        <div class="col-md-8  block-9 mb-md-5">
+        <div class="col-md-8 block-9 mb-md-5">
           <form action="{{route('user.check.login')}}" method="POST" class="bg-light p-5 contact-form">
             {{-- <div class="form-group">
               <input type="text" class="form-control" placeholder="Your Name">
@@ -42,11 +51,6 @@
             <a href="{{ route('user.register') }}">Create account</a>
           </form>
         </div>
-      </div>
-      <div class="row justify-content-center">
-          <div class="col-md-12">
-              <div id="map" class="bg-white"></div>
-          </div>
       </div>
     </div>
   </section>

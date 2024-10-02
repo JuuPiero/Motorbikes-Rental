@@ -49,6 +49,11 @@ class AccountController extends Controller {
         return view('admin.account.create');
     }
 
+    public function deleteAdmin($id) {
+        Admin::destroy($id);
+        return redirect()->back();
+    }
+
     public function storeAdmin(Request $request) {
         Admin::create([
             ...$request->all(),

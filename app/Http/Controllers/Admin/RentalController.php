@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Extensions\Rental\RentalStatus;
 use App\Http\Controllers\Controller;
 use App\Models\Rental;
 use Illuminate\Http\Request;
@@ -19,16 +20,18 @@ class RentalController extends Controller {
 
     public function detail($id) {
         $rental = Rental::findOrFail($id);
+        $rentalStatus = RentalStatus::getStatus();
         return view('admin.rental.detail')->with([
-            'rental' => $rental
+            'rental' => $rental,
+            'rentalStatus' => $rentalStatus
         ]);
     }
 
     public function update($id, Request $request) {
         $rental = Rental::findOrFail($id);
-
         $data = $request->all();
         $fileName = time();
+
         if ($request->hasFile('pre_rental_image')) {
             $image = $request->file('pre_rental_image');
             $fileName .= '.' . $image->getClientOriginalExtension();
@@ -59,6 +62,8 @@ class RentalController extends Controller {
         ]);
 
         // dd($data);
-        return redirect(route('home'));
+        return redirect(route('home'))->with([
+            'message' => 'Đặt hàng thành công'
+        ]);
     }
 }

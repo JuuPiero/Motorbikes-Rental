@@ -17,7 +17,7 @@
                 <div class="form-group row">
                     <label class="col-sm-3 form-control-label">Model</label>
                     <div class="col-sm-9">
-                        <input value="{{ $motorbike->model }}" name="name" type="text" class="form-control" required />
+                        <input value="{{ $motorbike->model }}" name="model" type="text" class="form-control" required />
                     </div>
                 </div>
                 <div class="form-group row">
@@ -75,7 +75,7 @@
                     <label class="col-sm-3 form-control-label">Status</label>
                     <div class="col-sm-9">
                         <select name="status" id="" class="form-control">
-                            <option value="Availabile">Availabile</option>
+                            <option value="Available">Available</option>
                             <option value="Renting">Renting</option>
                             <option value="Disable">Disable</option>
                         </select>

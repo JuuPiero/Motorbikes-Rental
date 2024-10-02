@@ -20,10 +20,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="car-details">
-                    {{-- <div class="img rounded d-flex align-items-end" style="background-image: url({{ asset('uploads/motorbike/' . $motorbike->images[0]->name) }});">
-                    </div> --}}
                     <div class="owl-carousel owl-theme">
-                        {{-- <div class="item"><h4>1</h4></div> --}}
                         @foreach ($motorbike->images as $image)
                             <div class="img rounded d-flex align-items-end" style="background-image: url({{ asset('uploads/motorbike/' . $image->name) }});">
                             </div>
@@ -32,6 +29,7 @@
                     <div class="text text-center">
                         <span class="subheading">{{ $motorbike->brand }}</span>
                         <h2>{{ $motorbike->model }}</h2>
+                        <h3> {{ $motorbike->price_per_day }}đ/day</h3>
                     </div>
                 </div>
             </div>
@@ -132,142 +130,107 @@
 
                         <div class="tab-pane fade show active" id="pills-manufacturer" role="tabpanel" aria-labelledby="pills-manufacturer-tab">
                             {!! $motorbike->description !!}
-                            {{-- <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.</p>
-                            <p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she continued her way.</p> --}}
                         </div>
 
                         <div class="tab-pane fade" id="pills-review" role="tabpanel" aria-labelledby="pills-review-tab">
-                        <div class="row">
-                            <div class="col-md-9">
-                                <h3 class="head">23 Reviews</h3>
-                                <div class="review d-flex">
-                                    <div class="user-img" style="background-image: url(images/person_1.jpg)"></div>
-                                    <div class="desc">
-                                        <h4>
-                                            <span class="text-left">Jacob Webb</span>
-                                            <span class="text-right">14 March 2018</span>
-                                        </h4>
-                                        <p class="star">
-                                            <span>
-                                                <i class="ion-ios-star"></i>
-                                                <i class="ion-ios-star"></i>
-                                                <i class="ion-ios-star"></i>
-                                                <i class="ion-ios-star"></i>
-                                                <i class="ion-ios-star"></i>
-                                            </span>
-                                            <span class="text-right"><a href="#" class="reply"><i class="icon-reply"></i></a></span>
-                                        </p>
-                                        <p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrov</p>
-                                    </div>
+                            @auth
+                                <div class="row">
+                                    <h5 class="bold">Wirte your review</h5>
+                                    <form class="col-9" method="POST" action="{{route('user.create.rating')}}">
+                                        @csrf
+                                        <input value="{{ $motorbike->id }}" type="hidden" name="motorbike_id" />
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Enter Name" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <select class="form-control mb-2" name="rating" id="">
+                                                <option value="1">1 ★</option>
+                                                <option value="2">2 ★</option>
+                                                <option value="3">3 ★</option>
+                                                <option value="4">4 ★</option>
+                                                <option value="5">5 ★</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <textarea class="form-control" name="comment" id="" cols="30" rows="6"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </form>
                                 </div>
-                                <div class="review d-flex">
-                                    <div class="user-img" style="background-image: url(images/person_2.jpg)"></div>
-                                    <div class="desc">
-                                        <h4>
-                                            <span class="text-left">Jacob Webb</span>
-                                            <span class="text-right">14 March 2018</span>
-                                        </h4>
-                                        <p class="star">
-                                            <span>
-                                                <i class="ion-ios-star"></i>
-                                                <i class="ion-ios-star"></i>
-                                                <i class="ion-ios-star"></i>
-                                                <i class="ion-ios-star"></i>
-                                                <i class="ion-ios-star"></i>
-                                            </span>
-                                            <span class="text-right"><a href="#" class="reply"><i class="icon-reply"></i></a></span>
-                                        </p>
-                                        <p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrov</p>
-                                    </div>
-                                </div>
-                                <div class="review d-flex">
-                                    <div class="user-img" style="background-image: url(images/person_3.jpg)"></div>
-                                    <div class="desc">
-                                        <h4>
-                                            <span class="text-left">Jacob Webb</span>
-                                            <span class="text-right">14 March 2018</span>
-                                        </h4>
-                                        <p class="star">
-                                            <span>
-                                                <i class="ion-ios-star"></i>
-                                                <i class="ion-ios-star"></i>
-                                                <i class="ion-ios-star"></i>
-                                                <i class="ion-ios-star"></i>
-                                                <i class="ion-ios-star"></i>
-                                            </span>
-                                            <span class="text-right"><a href="#" class="reply"><i class="icon-reply"></i></a></span>
-                                        </p>
-                                        <p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrov</p>
-                                    </div>
+                            @endauth
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <h3 class="head">{{ $motorbike->ratings->count() }} Reviews</h3>
+                                    @foreach ($motorbike->ratings as $rating)
+                                        <div class="review d-flex">
+                                            {{-- <div class="user-img" style="background-image: url(images/person_1.jpg)"></div> --}}
+                                            <div class="desc m-0" style="flex: 1;">
+                                                <h4>
+                                                    <span class="text-left">
+                                                        {{$rating->user->first_name . ' ' . $rating->user->last_name}}
+                                                    </span>
+                                                    <span class="text-right">{{ $rating->created_at }}</span>
+                                                </h4>
+                                                <p class="star">
+                                                    <span>
+                                                        @for ($i = 0; $i < $rating->rating; $i++)
+                                                            <i class="ion-ios-star"></i>
+                                                        @endfor
+                                                    </span>
+                                                    @auth
+                                                        @if ($rating->user_id === Auth::user()->id)
+                                                            <span class="text-right"><a href="#" class="reply"><i class="icon-trash"></i></a></span>
+                                                        @endif
+                                                    @endauth
+                                                </p>
+                                                <p>{{ $rating->comment }}</p>
+                                            </div>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
-                                
                         </div>
                     </div>
                 </div>
-                </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 text-center">
                 <a class="btn btn-primary p-3 " href="{{route('rental.create', $motorbike->id)}}">Book now</a>
+               
             </div>
         </div>
     </div>
 </section>
 
-  <section class="ftco-section ftco-no-pt">
-      <div class="container">
-          <div class="row justify-content-center">
-        <div class="col-md-12 heading-section text-center ftco-animate mb-5">
-            <span class="subheading">Choose Car</span>
-          <h2 class="mb-2">Related Cars</h2>
+<section class="ftco-section ftco-no-pt">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 heading-section text-center ftco-animate mb-5">
+                <span class="subheading">Choose Motorbike</span>
+                <h2 class="mb-2">Related Motorbikes</h2>
+            </div>
         </div>
-      </div>
-      <div class="row">
-          <div class="col-md-4">
-                  <div class="car-wrap rounded ftco-animate">
-                      <div class="img rounded d-flex align-items-end" style="background-image: url(images/car-1.jpg);">
-                      </div>
-                      <div class="text">
-                          <h2 class="mb-0"><a href="car-single.html">Mercedes Grand Sedan</a></h2>
-                          <div class="d-flex mb-3">
-                              <span class="cat">Cheverolet</span>
-                              <p class="price ml-auto">$500 <span>/day</span></p>
-                          </div>
-                          <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="car-single.html" class="btn btn-secondary py-2 ml-1">Details</a></p>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-md-4">
-                  <div class="car-wrap rounded ftco-animate">
-                      <div class="img rounded d-flex align-items-end" style="background-image: url(images/car-2.jpg);">
-                      </div>
-                      <div class="text">
-                          <h2 class="mb-0"><a href="car-single.html">Range Rover</a></h2>
-                          <div class="d-flex mb-3">
-                              <span class="cat">Subaru</span>
-                              <p class="price ml-auto">$500 <span>/day</span></p>
-                          </div>
-                          <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="car-single.html" class="btn btn-secondary py-2 ml-1">Details</a></p>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-md-4">
-                  <div class="car-wrap rounded ftco-animate">
-                      <div class="img rounded d-flex align-items-end" style="background-image: url(images/car-3.jpg);">
-                      </div>
-                      <div class="text">
-                          <h2 class="mb-0"><a href="car-single.html">Mercedes Grand Sedan</a></h2>
-                          <div class="d-flex mb-3">
-                              <span class="cat">Cheverolet</span>
-                              <p class="price ml-auto">$500 <span>/day</span></p>
-                          </div>
-                          <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="car-single.html" class="btn btn-secondary py-2 ml-1">Details</a></p>
-                      </div>
-                  </div>
-              </div>
-      </div>
-      </div>
-  </section>
+        <div class="row">
+            @foreach ($suggests as $bike)
+                <div class="col-md-4">
+                    <div class="car-wrap rounded ftco-animate">
+                        <div class="img rounded d-flex align-items-end" style="background-image: url({{ asset('uploads/motorbike/' . $bike->images[0]->name ) }});">
+                        </div>
+                        <div class="text">
+                            <h2 class="mb-0"><a href="{{ route('motorbike.detail', $bike->id) }}">{{ $bike->model }}</a></h2>
+                            <div class="d-flex mb-3">
+                                <span class="cat">{{ $bike->brand }}</span>
+                                <p class="price ml-auto">{{ $bike->price_per_day }}đ <span>/day</span></p>
+                            </div>
+                            <p class="d-flex mb-0 d-block"><a href="{{route('rental.create', $bike->id)}}" class="btn btn-primary py-2 mr-1">Book now</a> <a href="{{ route('motorbike.detail', $bike->id) }}" class="btn btn-secondary py-2 ml-1">Details</a></p>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </div>
+</section>
   
 @endsection
 

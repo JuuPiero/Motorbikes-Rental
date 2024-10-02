@@ -36,11 +36,11 @@
             <a href="{{ route('admin.rentals') }}"><i class="icon-windows"></i>Rentals</a>
         </li>
         <li>
-            <a href="{{ route('admin.rentals') }}"><i class="icon-windows"></i>Ratings</a>
+            <a href="{{ route('admin.rating') }}"><i class="icon-windows"></i>Ratings</a>
         </li>
-        <li>
+        {{-- <li>
             <a href="{{ route('admin.rentals') }}"><i class="icon-windows"></i>Transactions</a>
-        </li>
+        </li> --}}
         {{-- <li><a href="{{ route('admin.rating') }}"><i class="icon-padnote"></i>Ratings </a></li>
         <li><a href="{{ route('admin.setting') }}"><i class="icon-settings"></i>Settings </a></li> --}}
 
